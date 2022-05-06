@@ -1,11 +1,10 @@
 import  express from'express';
 const router = express.Router();
 
-//const {login, register} = require ('../controllers/auth.controller')
+import {authMethods, login, register} from '../controllers/auth.controller';
 
-router.get('/', (req,res) => {
-  res.send('Worked');
-});
+router.get('/', authMethods.login);
+
 
 //router.post('/register', register);
 
