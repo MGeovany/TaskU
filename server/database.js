@@ -1,21 +1,21 @@
-const mongoose = require('mongoose');
-const db = mongoose.connection;
+import mongoose from 'mongoose';
+
+import db from  mongoose.connection;
 
 const uri = "mongodb://localhost/taskuDb";
 
 function connectDB(){
 
   mongoose.connect(uri, {
+   // userNewUrlParser: true,
+    useUnifiedTopology: true
   
-  });
-
-  db.on('open', _=>{
-    console.log('connected');
   })
+  .then(() => app.listen(uri, ()=>console.log(`server running: ${uri}`)))
+  .catch((err) => console.log(err.message))
 
-  db.on("error", err =>{
-    console.log(err);
-  })
+//  mongoose.set('useFindAndModify', false);
+
 
 }
 

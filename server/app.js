@@ -1,19 +1,22 @@
-const express = require("express");
-const app = express();
-const helmet = require("helmet");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
+import express from "express";
+import helmet from "helmet";
+import cors from "cors";
+import bodyParser from "body-parser";
+import morgan from "morgan";
 
-app.use(bodyParser.urlencoded({ extended: true }));
+export const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true , limit:"30mb"}));
 //app.use(bodyParser.json);
 
 app.use(cors());
-app.use(helmet());
+//app.use(helmet());
 app.use(morgan("combined"));
+
+const CONNECTION_URL = 'mongodb+srv://marloncastro:020399Mg@cluster0.jh2t6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 
 app.use(require("./routes/auth.todo"));
 app.use("/todo", require("./routes/todo.route"));
 
-module.exports = app;
+export default app;

@@ -12,6 +12,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16"

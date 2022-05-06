@@ -1,17 +1,39 @@
-const app = require('./app')
-require('dotenv').config();
+import mongoose from 'mongoose';
+import cors from "cors";
+import bodyParser from "body-parser";
+import express from "express";
+import router from "../server/routes/auth.todo.js"
 
-require('./database')
+import helmet from "helmet";
+import morgan from "morgan";
 
-async function init(){
-  await app.listen(process.env.PORT || 3001, () =>{
-    console.log('running on', process.env.PORT || 3001);
+const app = express();
 
-  });
+app.use('/posts', router)
 
-}
+const PORT =  4001;
+const URI = "mongodb://localhost/taskuDb";
 
-init();
+app.use(bodyParser.urlencoded({ extended: true , limit:"30mb"}));
+app.use(cors());
+//app.use(bodyParser.json);
+//app.use(helmet());
+//app.use(morgan("combined"));
+
+mongoose.connect(URI, {
+  // userNewUrlParser: true,
+   useUnifiedTopology: true
+ 
+ })
+ .then(() => app.listen(PORT, ()=>console.log(`server running: ${PORT}`)))
+ .catch((err) => console.log(err.message))
+
+//  mongoose.set('useFindAndModify', false);
+
+
+
+
+
 
 
  
